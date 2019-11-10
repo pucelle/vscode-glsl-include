@@ -1,0 +1,131 @@
+{
+	"name": "glsl-include",
+	"displayName": "GLSL Include",
+	"description": "A tool to compile glsl file which includes `#include` and `#import` to a standard glsl file.",
+	"icon": "images/logo.png",
+	"version": "1.0.0",
+	"license": "MIT",
+	"publisher": "pucelle",
+	"homepage": "https://github.com/pucelle/vscode-glsl-include",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pucelle/vscode-glsl-include"
+	},
+	"bugs": {
+		"url": "https://github.com/pucelle/vscode-glsl-include/issues"
+	},
+	"engines": {
+		"vscode": "^1.30.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"keywords": [
+		"glsl include",
+		"glsl import",
+		"shader include",
+		"shader import"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.enableGLSLInclude",
+				"title": "GLSL include: Enable"
+			},
+			{
+				"command": "extension.disableGLSLInclude",
+				"title": "GLSL include: Disable"
+			}
+		],
+		"configuration": {
+			"title": "GLSL include",
+			"type": "object",
+			"properties": {
+				"GLSLInclude.extensions": {
+					"type": "array",
+					"default": [
+						"vs",
+						"fs",
+						"gs",
+						"comp",
+						"vert",
+						"tesc",
+						"tese",
+						"frag",
+						"geom",
+						"glsl",
+						"glslv",
+						"glslf",
+						"glslg"
+					],
+					"items": {
+						"type": "string"
+					},
+					"description": "The extensions of glsl files."
+				},
+				"GLSLInclude.runningStatusMessage": {
+					"type": "string",
+					"description": "Specify the status bar message when compiling began.",
+					"default": ""
+				},
+				"GLSLInclude.finishStatusMessage": {
+					"type": "string",
+					"description": "Specify the status bar message after compiling finished.",
+					"default": ""
+				},
+				"GLSLInclude.statusMessageTimeout": {
+					"type": "number",
+					"description": "Sepcify the timeout in millisecond after which the status message will be hidden.",
+					"default": 3000
+				},
+				"GLSLInclude.matchGlob": {
+					"type": "string",
+					"description": "Specify a glob pattern to match file path, only matched files will be compiled.",
+					"default": ""
+				},
+				"GLSLInclude.notMatchGlob": {
+					"type": "string",
+					"description": "Specify a glob pattern to match file path, matched files will not be compiled.",
+					"default": ""
+				},
+				"GLSLInclude.destPath": {
+					"type": "string",
+					"description": "Specify where the compiled file should be saved, If `srcDirname` and `destDirPathRelativeToSrc` specified, this option will be ignored.",
+					"default": "${fileDirname}/${fileBasenameNoExtension}-compiled${fileExtname}"
+				},
+				"GLSLInclude.srcDirname": {
+					"type": "string",
+					"description": "Specify the source directory name (not a path), If file path includes it, the path will be formatted as a relative path, then joined after `destRelativePath` as a dest path.",
+					"default": ""
+				},
+				"GLSLInclude.destDirPathRelativeToSrc": {
+					"type": "string",
+					"description": "Specify the dest directory relative to `srcDirname`, which will be joined with the relative path formatted from `srcDirname`, to generate a dest path.",
+					"default": ""
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^8.0.1",
+		"@types/minimatch": "^3.0.3",
+		"@types/node": "^12.12.7",
+		"typescript": "^3.6.4",
+		"vscode": "^1.1.36"
+	},
+	"dependencies": {
+		"fs-extra": "^7.0.1",
+		"glslify": "^7.0.0",
+		"minimatch": "^3.0.4"
+	}
+}
