@@ -22,7 +22,7 @@ export class GLSLCompiler {
 
 	throw(error: Error) {
 		let lineCountBefore = this.codes.replace(/.+/g, '').replace(/\r\n/g, '\n').length
-		throw `Error in line ${lineCountBefore + 1} of file "${this.filePath}": ${error.message}`
+		throw `Error in line ${lineCountBefore + 1} of file "${this.filePath}":\n${error.message}`
 	}
 
 	async compile(text: string) {

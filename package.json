@@ -2,7 +2,6 @@
 	"name": "glsl-include",
 	"displayName": "GLSL Include",
 	"description": "A tool to compile glsl file which includes `#include` and `#import` to a standard glsl file.",
-	"icon": "images/logo.png",
 	"version": "1.0.0",
 	"license": "MIT",
 	"publisher": "pucelle",
@@ -83,14 +82,20 @@
 					"default": 3000
 				},
 				"GLSLInclude.matchGlob": {
-					"type": "string",
-					"description": "Specify a glob pattern to match file path, only matched files will be compiled.",
-					"default": ""
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "string"
+					},
+					"description": "Specify glob patterns to match file path, only matched files will be compiled."
 				},
 				"GLSLInclude.notMatchGlob": {
-					"type": "string",
-					"description": "Specify a glob pattern to match file path, matched files will not be compiled.",
-					"default": ""
+					"type": "array",
+					"default": [],
+					"items": {
+						"type": "string"
+					},
+					"description": "Specify glob patterns to match file path, the files matched will not be compiled."
 				},
 				"GLSLInclude.destPath": {
 					"type": "string",
