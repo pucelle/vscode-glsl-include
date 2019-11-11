@@ -2,6 +2,7 @@
 	"name": "glsl-include",
 	"displayName": "GLSL Include",
 	"description": "A tool to compile glsl file which includes `#include` and `#import` to a standard glsl file.",
+	"icon": "images/logo.png",
 	"version": "1.0.0",
 	"license": "MIT",
 	"publisher": "pucelle",

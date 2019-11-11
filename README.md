@@ -1,5 +1,5 @@
 <h1 align="left">
-    <img src="https://github.com/pucelle/vscode-glsl-include/raw/master/images/logo.png" width="30" height="30" alt="a save logo" />
+    <img src="https://github.com/pucelle/vscode-glsl-include/raw/master/images/logo.png" width="48" height="48" alt="a save logo" />
     GLSL include - VSCode Extension
 </h1>
 
@@ -15,7 +15,7 @@ You can config where to output the compiled files, and shows some status message
 
 Supports `#include` and `import` path completion, and go to definition.
 
-This plugin uses [glslify](https://github.com/glslify/glslify) to implement `#import` and `export`, so we also supports all the syntax of it.
+This plugin uses [glslify](https://github.com/glslify/glslify) to implement `#import` and `export`, so we also supports all the features of it.
 
 
 
