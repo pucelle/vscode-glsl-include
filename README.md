@@ -1,6 +1,10 @@
-# GLSL include - VSCode Extension
+<h1 align="left">
+    <img src="https://github.com/pucelle/vscode-glsl-include/raw/master/images/logo.png" width="30" height="30" alt="a save logo" />
+    GLSL include - VSCode Extension
+</h1>
 
 GLSL include is a tool to compile glsl file after it was saved.
+
 
 
 ## Features
@@ -9,7 +13,10 @@ Supports compiling glsl file which include `#include` and `#import` to a standar
 
 You can config where to output the compiled files, and shows some status message for you.
 
+Supports `#include` and `import` path completion, and go to definition.
+
 This plugin uses [glslify](https://github.com/glslify/glslify) to implement `#import` and `export`, so we also supports all the syntax of it.
+
 
 
 ## Include, Import and Export
@@ -17,14 +24,14 @@ This plugin uses [glslify](https://github.com/glslify/glslify) to implement `#im
 #### Include a file:
 
 ```
-#include dir/file-name.frag
+#include ./dir/file-name.frag
 ```
 
 
 #### Import modules from file:
 
 ```
-#import module1, module2 from dir/file-name.frag
+#import module1, module2 from ./dir/file-name.frag
 ```
 
 It's shorthand for:
@@ -64,6 +71,7 @@ It's shorthand for:
 | `GLSLInclude.destDirPathRelativeToSrc` | Specify the dest directory relative to `srcDirname`, which will be joined with the relative path formatted from `srcDirname`, then generate a dest path.
 
 
+
 ### Variable Substitution
 
 Can be used in `destPath`, `destDirRelativeToSrc`.
@@ -81,6 +89,7 @@ For more details please refer to [VSCode Tasks](https://code.visualstudio.com/do
 | `${fileExtname}`             | the extension part of current opened file.
 | `${cwd}`                     | the task runner's current working directory on startup.
 | `${env.Name}`                | reference environment variables.
+
 
 
 ### Sample Configuration
@@ -125,6 +134,7 @@ The following commands are exposed in the command palette
 
 - `GLSL Include: Enable` - to enable the extension
 - `GLSL Include: Disable` - to disable the extension
+
 
 
 ## License

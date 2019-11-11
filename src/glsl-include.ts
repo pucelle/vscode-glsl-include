@@ -107,7 +107,6 @@ export class GLSLIncludeExtension {
 		let srcPath = document.fileName
 		let destPath = this.generateDestPath(srcPath)
 		let text = document.getText()
-		let glslExtensions = this.config.get('extensions', []) as string[]
 
 		try{
 			if (destPath && text) {
@@ -117,7 +116,7 @@ export class GLSLIncludeExtension {
 					this.showStatusMessage(this.formatWithVariableSubstitutions(runningStatusMessage, srcPath))
 				}
 
-				let compiled = await new GLSLCompiler(srcPath, [], glslExtensions).compile(text)
+				let compiled = await new GLSLCompiler(srcPath, []).compile(text)
 				await fs.ensureDir(path.dirname(destPath))
 				await fs.writeFile(destPath, compiled)
 				

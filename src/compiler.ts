@@ -8,12 +8,10 @@ export class GLSLCompiler {
 	private filePath: string = ''
 	private filePathChain: string[] = []
 	private codes: string = ''
-	private glslExtensions: string[]
 
-	constructor(filePath: string, filePathChain: string[], glslExtensions: string[]) {
+	constructor(filePath: string, filePathChain: string[]) {
 		this.filePath = filePath
 		this.filePathChain = [...filePathChain, filePath]
-		this.glslExtensions = glslExtensions
 
 		if (filePathChain.includes(filePath)) {
 			this.throw(new Error(`Include files circularly:\n` + this.filePathChain.join('\n')))
@@ -68,7 +66,7 @@ export class GLSLCompiler {
 
 	private async include(includePath: string) {
 		let text = (await fs.readFile(includePath)).toString()
-		let compiled = await (new GLSLCompiler(includePath, this.filePathChain, this.glslExtensions).compile(text))
+		let compiled = await (new GLSLCompiler(includePath, this.filePathChain).compile(text))
 
 		this.codes += compiled
 	}
@@ -81,13 +79,6 @@ export class GLSLCompiler {
 
 		let importFunctions = match![1].split(/\s*,\s*/)
 		let importPath = match![2].trim().replace(/^(['"])(.+?)\1$/, '$2').trim()
-		let extension = path.extname(importPath).slice(1).toLowerCase()
-
-		if (extension && this.glslExtensions.includes(extension)) {
-			if (!importPath.startsWith('./')) {
-				importPath = './' + importPath
-			}
-		}
 
 		await this.import(importPath, importFunctions)
 	}
@@ -95,7 +86,7 @@ export class GLSLCompiler {
 	private async import(importPath: string, functionNames: string[]) {
 		let text = functionNames.map(name => `#pragma glslify: ${name} = require(${importPath})`).join('\n')
 		let glslifyCompiled = glslify.compile(text, {basedir: path.dirname(this.filePath)})
-		let compiled = await (new GLSLCompiler(importPath, this.filePathChain, this.glslExtensions).compile(glslifyCompiled))
+		let compiled = await (new GLSLCompiler(importPath, this.filePathChain).compile(glslifyCompiled))
 
 		this.codes += compiled
 	}
