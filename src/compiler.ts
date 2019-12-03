@@ -40,7 +40,7 @@ export class GLSLCompiler {
 					await this.handleInclude(params)
 				}
 				else {
-					await this.handleImport(params)
+					this.codes += match[0]
 				}
 			}
 		}
@@ -49,6 +49,8 @@ export class GLSLCompiler {
 		}
 
 		this.codes += text.slice(lastIndex)
+
+		this.compileImport()
 
 		return this.codes
 	}
@@ -71,23 +73,7 @@ export class GLSLCompiler {
 		this.codes += compiled
 	}
 
-	private async handleImport(params: string) {
-		let match = params.match(/(.+?)\s+from\s+(.+)/)
-		if (!match) {
-			throw `Wrong import syntax "import ${params}"`
-		}
-
-		let importFunctions = match![1].split(/\s*,\s*/)
-		let importPath = match![2].trim().replace(/^(['"])(.+?)\1$/, '$2').trim()
-
-		await this.import(importPath, importFunctions)
-	}
-
-	private async import(importPath: string, functionNames: string[]) {
-		let text = functionNames.map(name => `#pragma glslify: ${name} = require(${importPath})`).join('\n')
-		let glslifyCompiled = glslify.compile(text, {basedir: path.dirname(this.filePath)})
-		let compiled = await (new GLSLCompiler(importPath, this.filePathChain).compile(glslifyCompiled))
-
-		this.codes += compiled
+	private async compileImport() {
+		this.codes = glslify.compile(this.codes, {basedir: path.dirname(this.filePath)})
 	}
 }
