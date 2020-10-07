@@ -1,4 +1,4 @@
-**This plugin is deprecated because not good enough.**
+# This plugin is deprecated because not good enough.
 
 <h1 align="left">
     <img src="https://github.com/pucelle/vscode-glsl-include/raw/master/images/logo.png" width="48" height="48" alt="a save logo" />
